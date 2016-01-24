@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/SoulxReaver/shutclub/issues"
   },
-  "homepage": "https://github.com/SoulxReaver/shutclub#readme"
+  "homepage": "https://github.com/SoulxReaver/shutclub#readme",
+  "dependencies": {
+    "hapi": "^12.1.0"
+  }
 }
