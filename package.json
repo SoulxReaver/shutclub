@@ -1,0 +1,19 @@
+{
+  "name": "shutclub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SoulxReaver/shutclub.git"
+  },
+  "author": "Alex Tong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SoulxReaver/shutclub/issues"
+  },
+  "homepage": "https://github.com/SoulxReaver/shutclub#readme"
+}
