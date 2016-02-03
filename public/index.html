@@ -3,35 +3,36 @@
 <head>
     <title>Angular 2 QuickStart</title>
 
-    <!-- 1. Load libraries -->
-    <!-- IE required polyfills, in this exact order -->
-    <script src="/libs/es6-shim/es6-shim.min.js"></script>
-    <script src="/libs/systemjs/dist/system-polyfills.js"></script>
+    <!--Runtime libs-->
+    <script src="/public/libs/es6-shim.min.js"></script>
+    <script src="/public/libs/system.js"></script>
 
-    <script src="/libs/angular2/bundles/angular2-polyfills.js"></script>
-    <script src="/libs/systemjs/dist/system.src.js"></script>
-    <script src="/libs/rxjs/bundles/Rx.js"></script>
-    <script src="/libs/angular2/bundles/angular2.dev.js"></script>
+    <!--SystemJs config-->
+    <script src="/public/system.config.js"></script>
 
-    <!-- 2. Configure SystemJS -->
-    <script>
-        System.config({
-            packages: {
-                app: {
-                    format: 'register',
-                    defaultExtension: 'js'
-                }
-            }
-        });
-        System.import('app/boot')
-                .then(null, console.error.bind(console));
-    </script>
+    <!--Framework Libs-->
+    <script src="/public/libs/Rx.min.js"></script>
+    <script src="/public/libs/angular2.dev.js"></script>
+    <script src="/public/libs/angular2-polyfills.js"></script>
+    <script src="/public/libs/router.dev.js"></script>
+    <script src="/public/libs/http.dev.js"></script>
 
 </head>
 
 <!-- 3. Display the application -->
 <body>
 <my-app>Loading...</my-app>
+<!-- 2. Configure SystemJS -->
+<script>
+    System.config({
+        transpiler: 'typescript',
+        typescriptOptions: { emitDecoratorMetadata: true },
+        packages: {'app': {defaultExtension: 'ts'}}
+    });
+    System.import('app/boot')
+            .then(null, console.error.bind(console));
+</script>
+
 </body>
 
 </html>
