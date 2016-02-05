@@ -2,9 +2,9 @@
   "name": "shutclub",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "gulp postinstall",
+    "start": "gulp start"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,7 @@
   "homepage": "https://github.com/SoulxReaver/shutclub#readme",
   "dependencies": {
     "angular2": "2.0.0-beta.0",
+    "es6-module-loader": "^0.17.8",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.33.3",
     "hapi": "^12.1.0",
@@ -29,6 +30,13 @@
     "zone.js": "0.5.10"
   },
   "devDependencies": {
+    "del": "^2.2.0",
+    "gulp": "^3.9.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-tsd": "^0.1.0",
+    "gulp-tslint": "^4.3.1",
+    "gulp-typescript": "^2.10.0",
+    "run-sequence": "^1.1.5",
     "typescript": "^1.7.3"
   }
 }
