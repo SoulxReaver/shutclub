@@ -2,9 +2,9 @@
   "name": "shutclub",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "gulp postinstall",
+    "start": "gulp start"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "del": "^2.2.0",
     "gulp": "^3.9.0",
     "gulp-sourcemaps": "^1.6.0",
+    "gulp-tsd": "^0.1.0",
     "gulp-tslint": "^4.3.1",
     "gulp-typescript": "^2.10.0",
     "run-sequence": "^1.1.5",

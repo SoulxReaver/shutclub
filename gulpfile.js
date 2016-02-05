@@ -1,16 +1,27 @@
 var del = require('del');
 var join = require('path').join;
 
-var gulp = require('gulp');
-var sourcemaps = require('gulp-sourcemaps');
-var tsc = require('gulp-typescript');
-var tslint = require('gulp-tslint');
-var inlineNg2Template = require('gulp-inline-ng2-template');
-var tsProject = tsc.createProject('tsconfig.json');
-var runSequence = require('run-sequence');
+/** Build Deps **/
 
+var ts = require('typescript');
+var gulp = require('gulp');
+var tsc = require('gulp-typescript');
+var sourcemaps = require('gulp-sourcemaps');
+var runSequence = require('run-sequence');
+var tsd = require('gulp-tsd');
+var tslint = require('gulp-tslint');
+var exec = require('child_process').exec;
+
+/** Configuration **/
 var PUBLIC_DIR = 'public';
+var SERVER_DIR = 'server';
+var TYPINGS_DIR = 'typings';
 var APP_DEST = 'dist';
+
+var TS_PROJECTS_NAMES = [
+    PUBLIC_DIR,
+    SERVER_DIR
+];
 
 var LIBS = [
     './public/libs/**',
@@ -26,9 +37,40 @@ var LIBS = [
     './node_modules/rxjs/bundles/Rx.min.js',
     './node_modules/rxjs/bundles/Rx.min.js.map'
 ];
-/** Clean **/
+
+/** Install Tasks **/
+gulp.task('install.typings', ['clean.typings'], function (next) {
+    tsd({
+        command: 'reinstall',
+        config: './tsd.json'
+    }, next);
+});
+
+gulp.task('postinstall', function (done) {
+    runSequence('install.typings', done);
+});
+
+/** Clean Tasks **/
+gulp.task('clean.target', function (done) {
+    cleanDir(join(APP_DEST, '**/*'), done)
+});
+
 gulp.task('clean.public', function (done) {
     cleanDir(join(APP_DEST, 'public', '**/*'), done);
+});
+
+gulp.task('clean.typings', function (done) {
+    cleanDir(join(TYPINGS_DIR, 'tsd', '**/*'), done);
+});
+
+/** Build Tasks **/
+
+gulp.task('build.public.js', function () {
+    return buildTypescript(PUBLIC_DIR);
+});
+
+gulp.task('build.server.js', function () {
+    return buildTypescript(SERVER_DIR);
 });
 
 /** Copy Tasks **/
@@ -46,39 +88,65 @@ gulp.task('copy.public.assets', function () {
         .pipe(gulp.dest(join(APP_DEST, PUBLIC_DIR)));
 });
 
-/** build task **/
-gulp.task('build.public', function (done) {
+gulp.task('copy.server.assets', function () {
+    return gulp.src(join(SERVER_DIR, '**/*.json'))
+        .pipe(gulp.dest(join(APP_DEST, SERVER_DIR)));
+});
+
+// A build of the public folder only.
+// Intended for live reload on local server
+
+gulp.task('build.public.dev', function (done) {
     runSequence(
         'clean.public',
         ['copy.public.libs', 'copy.public.assets'],
-        'compile-ts',
+        'build.public.js',
         done
     );
 });
 
-gulp.task('ts-lint', function() {
-    return gulp.src(config.ts)
-        .pipe(tslint())
-        .pipe(tslint.report('pose', {
-            emitError: false
-        }))
-})
+// A build designed for running locally.
+// Binds to port 3000
+gulp.task('build', function (done) {
+    runSequence(
+        'clean.target',
+        ['copy.public.libs', 'copy.public.assets', 'copy.server.assets'],
+        'build.public.js',
+        'build.server.js',
+        done
+    );
+});
 
-gulp.task('compile-ts', function () {
+/** Lint Tasks **/
+gulp.task('lint.public', function () {
+    return gulp.src([
+            join(PUBLIC_DIR, '**', '*.ts')
+        ])
+        .pipe(tslint());
+});
 
-    var tsResult = gulp.src([join(PUBLIC_DIR, '**/*.ts')])
-        .pipe(inlineNg2Template( {
-            base: '/public/app',
-            html: true,
-            css: true,
-            indent: 0
-        }))
-        .pipe(sourcemaps.init())
-        .pipe(tsc(tsProject[PUBLIC_DIR]));
+gulp.task('lint', function () {
+    return gulp.src([
+            join(PUBLIC_DIR, '**', '*.ts'),
+            join(SERVER_DIR, '**', '*.ts')
+        ])
+        .pipe(tslint());
+});
 
-    return tsResult.js
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest(join(APP_DEST, PUBLIC_DIR)));
+/** Serve Tasks **/
+
+gulp.task('serve', ['watch.public', 'build', 'lint'], function (next) {
+    var cd = 'cd ' + join(APP_DEST);
+    var serve = 'node ' + join(SERVER_DIR, 'server');
+    execChildProcess([cd, serve], next);
+});
+
+gulp.task('start', ['serve']);
+
+/** Watch Tasks **/
+
+gulp.task('watch.public', ['build'], function () {
+    gulp.watch(join(PUBLIC_DIR, '**/*'), ['build.public', 'lint.public']);
 });
 
 /** Helpers **/
@@ -88,3 +156,41 @@ function cleanDir(dir, done) {
         done();
     });
 }
+
+function execChildProcess(cmd, cb) {
+    if (Object.prototype.toString.call(cmd) === '[object Array]') {
+        cmd = cmd.join(' && ');
+    }
+
+    var childProcess = exec(cmd);
+
+    childProcess.stdout.on('data', function (data) {
+        console.log(data.toString());
+    });
+
+    childProcess.stderr.on('data', function (data) {
+        console.log(data.toString());
+    });
+
+    childProcess.on('exit', function () {
+        cb && cb();
+    });
+}
+
+var buildTypescript = (function () {
+    var _tsProjects = {};
+    TS_PROJECTS_NAMES.forEach(function (name) {
+        _tsProjects[name] = tsc.createProject('tsconfig.json', { typescript: ts });
+    });
+
+    return function _buildTypescript(dir) {
+
+        var result = gulp.src([join(dir, '**/*.ts')])
+            .pipe(sourcemaps.init())
+            .pipe(tsc(_tsProjects[dir]));
+
+        return result.js
+            .pipe(sourcemaps.write())
+            .pipe(gulp.dest(join(APP_DEST, dir)));
+    };
+})();

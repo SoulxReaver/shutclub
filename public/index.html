@@ -22,15 +22,8 @@
 <!-- 3. Display the application -->
 <body>
 <my-app>Loading...</my-app>
-<!-- 2. Configure SystemJS -->
 <script>
-    System.config({
-        transpiler: 'typescript',
-        typescriptOptions: { emitDecoratorMetadata: true },
-        packages: {'app': {defaultExtension: 'ts'}}
-    });
-    System.import('app/boot')
-            .then(null, console.error.bind(console));
+    System.import('app/boot');
 </script>
 
 </body>

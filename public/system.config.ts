@@ -1,3 +1,3 @@
-/**
- * Created by SoulxReaver on 2/4/2016.
- */
+System.config( {
+    defaultJSExtensions: true
+});

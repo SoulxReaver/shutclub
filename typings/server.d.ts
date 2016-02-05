@@ -1,3 +1,5 @@
-/**
- * Created by SoulxReaver on 2/4/2016.
- */
+/** TSD Typings **/
+/// <reference path="./tsd/hapi/hapi.d.ts" />
+
+/** Custom External Typings **/
+/// <reference path="custom/inert.d.ts" />
