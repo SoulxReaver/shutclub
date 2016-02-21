@@ -2,7 +2,6 @@ var del = require('del');
 var join = require('path').join;
 
 /** Build Deps **/
-
 var ts = require('typescript');
 var gulp = require('gulp');
 var tsc = require('gulp-typescript');
@@ -17,11 +16,6 @@ var PUBLIC_DIR = 'public';
 var SERVER_DIR = 'server';
 var TYPINGS_DIR = 'typings';
 var APP_DEST = 'dist';
-
-var TS_PROJECTS_NAMES = [
-    PUBLIC_DIR,
-    SERVER_DIR
-];
 
 var LIBS = [
     './public/libs/**',
@@ -135,11 +129,13 @@ gulp.task('lint', function () {
 
 /** Serve Tasks **/
 
-gulp.task('serve', ['watch.public', 'build', 'lint'], function (next) {
+gulp.task('serve', ['watch.public', 'build', 'lint'], function () {
     var cd = 'cd ' + join(APP_DEST);
     var serve = 'node ' + join(SERVER_DIR, 'server');
-    execChildProcess([cd, serve], next);
+    execChildProcess([cd, serve]);
 });
+
+gulp.task('default', ['postinstall', 'start'], function() {});
 
 gulp.task('start', ['serve']);
 
@@ -157,7 +153,7 @@ function cleanDir(dir, done) {
     });
 }
 
-function execChildProcess(cmd, cb) {
+function execChildProcess(cmd) {
     if (Object.prototype.toString.call(cmd) === '[object Array]') {
         cmd = cmd.join(' && ');
     }
@@ -167,30 +163,16 @@ function execChildProcess(cmd, cb) {
     childProcess.stdout.on('data', function (data) {
         console.log(data.toString());
     });
-
-    childProcess.stderr.on('data', function (data) {
-        console.log(data.toString());
-    });
-
-    childProcess.on('exit', function () {
-        cb && cb();
-    });
 }
 
-var buildTypescript = (function () {
-    var _tsProjects = {};
-    TS_PROJECTS_NAMES.forEach(function (name) {
-        _tsProjects[name] = tsc.createProject('tsconfig.json', { typescript: ts });
-    });
+function buildTypescript(dir) {
 
-    return function _buildTypescript(dir) {
+    var result = gulp.src([join(dir, '**/*.ts')])
+        .pipe(sourcemaps.init())
+        .pipe(tsc(tsc.createProject('tsconfig.json', { typescript: ts })));
 
-        var result = gulp.src([join(dir, '**/*.ts')])
-            .pipe(sourcemaps.init())
-            .pipe(tsc(_tsProjects[dir]));
+    return result.js
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(join(APP_DEST, dir)));
 
-        return result.js
-            .pipe(sourcemaps.write())
-            .pipe(gulp.dest(join(APP_DEST, dir)));
-    };
-})();
+};

@@ -24,7 +24,7 @@ server.route([{
     method: 'GET',
     path: '/',
     handler: (request, reply) => {
-        reply('/public');
+        reply.redirect('/public');
     },
     config: { auth: false }
 }, {
@@ -39,7 +39,7 @@ server.route([{
 
 server.start((err) => {
     assert.ifError(err);
-    global.console.log('Kuiper service starting:' +
+    global.console.log('project starting:' +
         '\n\tHost: ' + server.info.host +
         '\n\tURI: ' + server.info.uri )
 });
