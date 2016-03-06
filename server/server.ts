@@ -32,7 +32,8 @@ server.route([{
     path: '/public/{param*}',
     handler: {
         directory: {
-            path: 'public'
+            path: 'public',
+            listing: true
         }
     }
 }]);
