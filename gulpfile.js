@@ -142,7 +142,7 @@ gulp.task('start', ['serve']);
 /** Watch Tasks **/
 
 gulp.task('watch.public', ['build'], function () {
-    gulp.watch(join(PUBLIC_DIR, '**/*'), ['build.public', 'lint.public']);
+    gulp.watch(join(PUBLIC_DIR, '**/*'), ['build.public.dev', 'lint.public']);
 });
 
 /** Helpers **/
