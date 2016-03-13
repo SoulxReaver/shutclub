@@ -6,7 +6,8 @@ import * as assert from 'assert';
 import * as Inert from 'inert';
 import { Server } from 'hapi';
 import { join } from 'path';
-
+import utils  = require('./utils');
+import base = require('./routes/base');
 var server = new Server();
 
 server.connection({
@@ -20,23 +21,11 @@ server.register([
     assert.ifError(err);
 });
 
-server.route([{
-    method: 'GET',
-    path: '/',
-    handler: (request, reply) => {
-        reply.redirect('/public');
-    },
-    config: { auth: false }
-}, {
-    method: 'GET',
-    path: '/public/{param*}',
-    handler: {
-        directory: {
-            path: 'public',
-            listing: true
-        }
-    }
-}]);
+server.route(
+    utils.combineRoutes(
+        base.routes
+    )
+);
 
 server.start((err) => {
     assert.ifError(err);

@@ -36,7 +36,7 @@ var LIBS = [
 gulp.task('install.typings', ['clean.typings'], function (next) {
     tsd({
         command: 'reinstall',
-        config: './tsd.json'
+        config: './typing.json'
     }, next);
 });
 
