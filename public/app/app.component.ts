@@ -15,5 +15,6 @@ import { HomeComponent } from "./home.component";
     {path: '/home', name: 'Home', component: HomeComponent, useAsDefault: true}
 ])
 export class AppComponent {
+    constructor(){}
     public title = "ShutClub";
 }
