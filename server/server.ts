@@ -8,6 +8,7 @@ import { Server } from 'hapi';
 import { join } from 'path';
 import utils  = require('./utils');
 import base = require('./routes/base');
+import clubs = require('./routes/clubs');
 var server = new Server();
 
 server.connection({
@@ -23,7 +24,8 @@ server.register([
 
 server.route(
     utils.combineRoutes(
-        base.routes
+        base.routes,
+        clubs.routes
     )
 );
 

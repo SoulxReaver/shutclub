@@ -7,7 +7,7 @@ export class ClubService {
     
     getAllClubs(url) {
         return this.http.get(url).map(response => {
-            response.json();
+            return response.json();
         })
     }
 }

@@ -1,1 +1,5 @@
-export class club
+export class Club {
+    clubName: string;
+    location: string;
+    state: string;
+}
