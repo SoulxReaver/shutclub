@@ -1,21 +1,17 @@
 /// <reference path="../../typings/public.d.ts" />
+///<reference path="../../node_modules/angular2/typings/browser.d.ts"/>
 
-import { Component, View, Type } from 'angular2/core';
-import { CORE_DIRECTIVES } from 'angular2/common';
 import { bootstrap } from 'angular2/platform/browser';
-import { RouteConfig, Router, RouterLink, ROUTER_PROVIDERS } from 'angular2/router';
-import { HTTP_PROVIDERS } from 'angular2/http';
+import { ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy } from 'angular2/router';
+import { AppComponent } from './app.component'
+import {bind} from "angular2/core";
+import {HTTP_BINDINGS} from "angular2/http";
+import 'rxjs/Rx';
 
-@Component({
-    selector: 'my-app'
-})
-@View({
-    template: '<h1>My First Angular 2 App</h1>',
-    directives: [ CORE_DIRECTIVES ]
-})
 
-export class App {
-    constructor() {}
-}
 
-bootstrap(<Type> App, [ HTTP_PROVIDERS, ROUTER_PROVIDERS ]);
+bootstrap(AppComponent, [
+    HTTP_BINDINGS,
+    ROUTER_PROVIDERS,
+    bind(LocationStrategy).toClass(HashLocationStrategy)
+]);

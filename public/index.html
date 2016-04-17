@@ -4,28 +4,29 @@
     <title>Angular 2 QuickStart</title>
 
     <!--Runtime libs-->
-    <script src="/public/libs/es6-shim.min.js"></script>
-    <script src="/public/libs/system.js"></script>
+    <script src="/libs/es6-shim.min.js"></script>
+    <script src="/libs/system.js"></script>
 
     <!--SystemJs config-->
-    <script src="/public/system.config.js"></script>
+    <script src="/system.config.js"></script>
 
     <!--Framework Libs-->
-    <script src="/public/libs/Rx.min.js"></script>
-    <script src="/public/libs/angular2.dev.js"></script>
-    <script src="/public/libs/angular2-polyfills.js"></script>
-    <script src="/public/libs/router.dev.js"></script>
-    <script src="/public/libs/http.dev.js"></script>
+    <script src="/libs/Rx.min.js"></script>
+    <script src="/libs/angular2.dev.js"></script>
+    <script src="/libs/angular2-polyfills.js"></script>
+    <script src="/libs/router.dev.js"></script>
+    <script src="/libs/http.dev.js"></script>
 
 </head>
-
+<base href="/">
 <!-- 3. Display the application -->
 <body>
-<my-app>Loading...</my-app>
 <script>
-    System.import('app/boot');
+    System
+            .import('./app/boot')
+            .then(null, console.error.bind(console));
 </script>
-
+<my-app>Loading...</my-app>
 </body>
 
 </html>

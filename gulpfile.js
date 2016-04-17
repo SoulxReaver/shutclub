@@ -36,7 +36,7 @@ var LIBS = [
 gulp.task('install.typings', ['clean.typings'], function (next) {
     tsd({
         command: 'reinstall',
-        config: './tsd.json'
+        config: './typing.json'
     }, next);
 });
 
@@ -76,8 +76,8 @@ gulp.task('copy.public.libs', function () {
 
 gulp.task('copy.public.assets', function () {
     return gulp.src([
-            join(PUBLIC_DIR, 'index.html'),
-            join(PUBLIC_DIR, 'index.css')
+            join(PUBLIC_DIR, '**/*.html'),
+            join(PUBLIC_DIR, '**/*.css')
         ])
         .pipe(gulp.dest(join(APP_DEST, PUBLIC_DIR)));
 });
@@ -142,7 +142,7 @@ gulp.task('start', ['serve']);
 /** Watch Tasks **/
 
 gulp.task('watch.public', ['build'], function () {
-    gulp.watch(join(PUBLIC_DIR, '**/*'), ['build.public', 'lint.public']);
+    gulp.watch(join(PUBLIC_DIR, '**/*'), ['build.public.dev', 'lint.public']);
 });
 
 /** Helpers **/
