@@ -1,22 +1,24 @@
+var _ = require('lodash');
+
 var jsonobject = [
     {
         "clubName": "club1",
-        "Location": "sea",
+        "location": "sea",
         "state":"WA"
     },
     {
         "clubName": "club2",
-        "Location": "bell",
+        "location": "bell",
         "state": "CA"
     },
     {
         "clubName": "club3",
-        "Location": "sea",
+        "location": "sea",
         "state": "OR"
     },
     {
         "clubName": "club4",
-        "Location": "bell",
+        "location": "bell",
         "state": "tx"
     }
 ]
@@ -25,15 +27,24 @@ export function findAll() {
     return jsonobject
 }
 
-export function findlocation(location) {
+export function getListOfLocation() {
+    var obj = [];
+    for ( var x in jsonobject) {
+        if(!_.includes(obj, jsonobject[x]['location'])) {
+            obj.push(jsonobject[x]['location']);
+        }
+    }
+    return obj.sort();
+}
+
+export function getClubsByLocation(location) {
     var obj = []
     for ( var x in jsonobject) {
-        if(location == jsonobject[x]['Location'])
-        {
+        if(location == jsonobject[x]['location']) {
             obj.push(jsonobject[x]);
         }
     }
-    return obj
+    return _.sortBy(obj, [location]);
 }
 
 // function findlocationAndState(location, state) {

@@ -1,0 +1,12 @@
+<select [ngFormControl]="clubSelect">
+    <option value="all">All</option>
+    <option *ngFor="#location of locations" value={{location}}>{{location}}</option>
+</select>
+
+<div>
+    <div *ngFor="#club of clubs">
+        <span>{{club.clubName}}</span>
+        <span>{{club.state}}</span>
+        <span>{{club.location}}</span>
+    </div>
+</div>
