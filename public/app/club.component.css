@@ -1,0 +1,26 @@
+.selections {
+    color: black;
+    height: 122px;
+}
+
+.selections ul {
+    list-style: none;
+    text-align: center;
+}
+
+
+.selections ul li {
+    padding: 10px 5px 45px;
+    border: 1px black solid;
+    width: 192px;
+    float:left;
+    margin-left: 5px;
+}
+
+.selections ul li img {
+    padding: 4px;
+    margin: 3px 0 5px 10px;
+    border: 1px solid #ccc;
+    display: block;
+    height: 113px;
+}

@@ -3,10 +3,11 @@
     <option *ngFor="#location of locations" value={{location}}>{{location}}</option>
 </select>
 
-<div>
-    <div *ngFor="#club of clubs">
-        <span>{{club.clubName}}</span>
-        <span>{{club.state}}</span>
-        <span>{{club.location}}</span>
-    </div>
+<div class="selections">
+    <ul>
+        <li *ngFor="#club of clubs">
+            <img src="./assets/{{club.clubName}}.jpg" width="160"/>
+            <span>{{club.clubName}}</span>
+        </li>
+    </ul>
 </div>

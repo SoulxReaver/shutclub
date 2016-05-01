@@ -9,6 +9,7 @@ import {  Control, FORM_DIRECTIVES } from "angular2/common";
     selector: 'my-club',
     templateUrl: 'app/club.component.html',
     providers: [ ClubService ],
+    styleUrls: [ 'app/club.component.css' ],
     directives: [FORM_DIRECTIVES]
 })
 
