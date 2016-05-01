@@ -77,7 +77,8 @@ gulp.task('copy.public.libs', function () {
 gulp.task('copy.public.assets', function () {
     return gulp.src([
             join(PUBLIC_DIR, '**/*.html'),
-            join(PUBLIC_DIR, '**/*.css')
+            join(PUBLIC_DIR, '**/*.css'),
+            join(PUBLIC_DIR, '**/*.jpg'),
         ])
         .pipe(gulp.dest(join(APP_DEST, PUBLIC_DIR)));
 });
