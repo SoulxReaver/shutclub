@@ -1,9 +1,10 @@
-{
+{ 
   "name": "shutclub",
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "npm install gulp && gulp start"
+	"preinstall" : "npm install",
+    "start": "gulp start"
   },
   "repository": {
     "type": "git",
