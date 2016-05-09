@@ -20,29 +20,16 @@ var APP_DEST = 'dist';
 var LIBS = [
     './public/libs/**',
     './node_modules/es6-shim/es6-shim.min.js',
-    './node_modules/es6-shim/es6-shim.map',
-    './node_modules/systemjs/dist/system.js',
-    './node_modules/systemjs/dist/system-polyfills.js',
-    './node_modules/systemjs-plugin-css/css.js',
-    './node_modules/angular2/bundles/angular2.dev.js',
-    './node_modules/angular2/bundles/angular2-polyfills.js',
-    './node_modules/angular2/bundles/router.dev.js',
-    './node_modules/angular2/bundles/http.dev.js',
-    './node_modules/rxjs/bundles/Rx.min.js',
-    './node_modules/rxjs/bundles/Rx.min.js.map'
+    './node_modules/zone.js/dist/zone.js',
+    './node_modules/reflect-metadata/Reflect.js',
+    './node_modules/systemjs/dist/system.src.js'
+]
+
+var NODE_MODULES = [
+    './node_modules/rxjs/**/*',
+    './node_modules/angular2-in-memory-web-api/**/*',
+    './node_modules/@angular/**/*'
 ];
-
-/** Install Tasks **/
-gulp.task('install.typings', ['clean.typings'], function (next) {
-    tsd({
-        command: 'reinstall',
-        config: './typing.json'
-    }, next);
-});
-
-gulp.task('postinstall', function (done) {
-    runSequence('install.typings', done);
-});
 
 /** Clean Tasks **/
 gulp.task('clean.target', function (done) {
@@ -51,10 +38,6 @@ gulp.task('clean.target', function (done) {
 
 gulp.task('clean.public', function (done) {
     cleanDir(join(APP_DEST, 'public', '**/*'), done);
-});
-
-gulp.task('clean.typings', function (done) {
-    cleanDir(join(TYPINGS_DIR, 'tsd', '**/*'), done);
 });
 
 /** Build Tasks **/
@@ -68,9 +51,13 @@ gulp.task('build.server.js', function () {
 });
 
 /** Copy Tasks **/
-
 gulp.task('copy.public.libs', function () {
     return gulp.src(LIBS)
+        .pipe(gulp.dest(join(APP_DEST, PUBLIC_DIR, 'libs')));
+});
+
+gulp.task('copy.public.node_modules', function () {
+    return gulp.src(NODE_MODULES, {base: "node_modules"})
         .pipe(gulp.dest(join(APP_DEST, PUBLIC_DIR, 'libs')));
 });
 
@@ -93,7 +80,6 @@ gulp.task('copy.server.assets', function () {
 
 gulp.task('build.public.dev', function (done) {
     runSequence(
-        'clean.public',
         ['copy.public.libs', 'copy.public.assets'],
         'build.public.js',
         done
@@ -105,7 +91,7 @@ gulp.task('build.public.dev', function (done) {
 gulp.task('build', function (done) {
     runSequence(
         'clean.target',
-        ['copy.public.libs', 'copy.public.assets', 'copy.server.assets'],
+        ['copy.public.libs', 'copy.public.assets', 'copy.server.assets', 'copy.public.node_modules'],
         'build.public.js',
         'build.server.js',
         done
@@ -136,7 +122,7 @@ gulp.task('serve', ['watch.public', 'build', 'lint'], function () {
     execChildProcess([cd, serve]);
 });
 
-gulp.task('default', ['postinstall', 'start'], function() {});
+gulp.task('default', ['start'], function() {});
 
 gulp.task('start', ['serve']);
 
