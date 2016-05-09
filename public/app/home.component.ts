@@ -1,6 +1,5 @@
-/// <reference path="../../typings/public.d.ts" />
 
-import { Component } from 'angular2/core';
+import { Component } from '@angular/core';
 import { ClubComponent } from './club.component';
 
 @Component({

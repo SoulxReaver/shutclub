@@ -1,9 +1,9 @@
-{
+{ 
   "name": "shutclub",
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "npm install gulp && gulp start"
+    "start": "gulp start"
   },
   "repository": {
     "type": "git",
@@ -16,18 +16,26 @@
   },
   "homepage": "https://github.com/SoulxReaver/shutclub#readme",
   "dependencies": {
-    "angular2": "2.0.0-beta.8",
-    "es6-module-loader": "^0.17.8",
-    "es6-promise": "^3.0.2",
-    "es6-shim": "^0.33.3",
+    "@angular/common":  "2.0.0-rc.1",
+    "@angular/compiler":  "2.0.0-rc.1",
+    "@angular/core":  "2.0.0-rc.1",
+    "@angular/http":  "2.0.0-rc.1",
+    "@angular/platform-browser":  "2.0.0-rc.1",
+    "@angular/platform-browser-dynamic":  "2.0.0-rc.1",
+    "@angular/router":  "2.0.0-rc.1",
+    "@angular/router-deprecated":  "2.0.0-rc.1",
+    "@angular/upgrade":  "2.0.0-rc.1",
+    "systemjs": "0.19.27",
+    "es6-shim": "^0.35.0",
+    "reflect-metadata": "^0.1.3",
+    "rxjs": "5.0.0-beta.6",
+    "zone.js": "^0.6.12",
+    "angular2-in-memory-web-api": "0.0.7",
+    "bootstrap": "^3.3.6",
     "hapi": "^12.1.0",
     "inert": "^3.2.0",
     "lodash": "^4.11.1",
-    "path": "^0.12.7",
-    "reflect-metadata": "0.1.2",
-    "rxjs": "5.0.0-beta.2",
-    "systemjs": "0.19.22",
-    "zone.js": "0.5.15"
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "del": "^2.2.0",
@@ -38,6 +46,7 @@
     "gulp-typescript": "^2.10.0",
     "run-sequence": "^1.1.5",
     "tslint": "^3.5.0",
-    "typescript": "^1.7.3"
+    "typescript": "^1.8.10",
+    "typings": "^0.8.1"
   }
 }

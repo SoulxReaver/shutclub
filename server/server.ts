@@ -1,6 +1,5 @@
 
-/// <reference path="../typings/server.d.ts" />
-
+/// <reference path="../typings/main.d.ts" />
 // Node modules
 import * as assert from 'assert';
 import * as Inert from 'inert';

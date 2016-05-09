@@ -1,0 +1,11 @@
+{
+  "name": "shutclub",
+  "version": false,
+  "dependencies": {},
+  "ambientDependencies": {
+    "es6-shim": "registry:dt/es6-shim#0.31.2+20160317120654",
+    "hapi": "registry:dt/hapi#13.0.0+20160423150146",
+    "node": "registry:dt/node#4.0.0+20160505172921",
+    "systemjs": "registry:dt/systemjs#0.18.4+20160417155658"
+  }
+}

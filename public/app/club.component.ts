@@ -1,9 +1,8 @@
-/// <reference path="../../typings/public.d.ts" />
 
-import { Component } from 'angular2/core';
+import { Component } from '@angular/core';
 import { Club } from './club';
 import { ClubService } from './club.service';
-import {  Control, FORM_DIRECTIVES } from "angular2/common";
+import {  Control, FORM_DIRECTIVES } from "@angular/common";
 
 @Component({
     selector: 'my-club',
