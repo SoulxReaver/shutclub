@@ -1,3 +1,4 @@
+
 import {Injectable} from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -7,17 +8,9 @@ export class ClubService {
     constructor(public http: Http) {}
     
     getAllClubs(): Observable<Response> {
-        return this.http.get('/clubs').map(this.extractData)
+        return this.http.get('/assets/clubs.json').map(this.extractData)
     }
     
-    getListOfLocation(): Observable<Object> {
-        return this.http.get('/listOfLocations').map(this.extractData)
-    }
-    
-    getClubByLocation(location): Observable<Object> {
-        return this.http.get('/getClubsByLocation/' + location).map(this.extractData)
-    }
-
     private extractData(res: Response) {
         if (res.status < 200 || res.status >= 300) {
             throw new Error('Bad response status: ' + res.status);

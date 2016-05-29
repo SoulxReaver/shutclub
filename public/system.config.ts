@@ -6,14 +6,15 @@
         'app':                        'app', // 'dist',
         'rxjs':                       'libs/rxjs',
         'angular2-in-memory-web-api': 'libs/angular2-in-memory-web-api',
-        '@angular':                   'libs/@angular'
+        '@angular':                   'libs/@angular',
+        'jquery' :                    'https://code.jquery.com/jquery-1.10.2.js'
     };
 
     // packages tells the System loader how to load when no filename and/or no extension
     var packages = {
         'app':                        { main: 'boot.js',  defaultExtension: 'js' },
         'rxjs':                       { defaultExtension: 'js' },
-        'angular2-in-memory-web-api': { defaultExtension: 'js' },
+        'angular2-in-memory-web-api': { defaultExtension: 'js' }
     };
 
     var packageNames = [
@@ -35,8 +36,10 @@
     });
 
     var config = {
+        baseURL: '/',
         map: map,
         packages: packages
+
     }
 
     // filterSystemConfig - index.html's chance to modify config before we register it.

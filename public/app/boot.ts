@@ -9,6 +9,7 @@ import {LocationStrategy,
 import {provide}           from '@angular/core';
 // Add all operators to Observable
 import 'rxjs/Rx';
+import 'jquery';
 
 bootstrap(AppComponent, [
     ROUTER_PROVIDERS,
