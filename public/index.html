@@ -12,14 +12,16 @@
     <!--SystemJs config-->
     <script src="/system.config.js"></script>
 
+    <script src="//connect.facebook.net/en_US/sdk.js"></script>
 </head>
 <!-- 3. Display the application -->
 <body>
 <script>
     System.import('./app/boot').catch(function(err){ console.error(err);  });
 </script>
+<facebook-login></facebook-login>
 
-<my-app>Loading...</my-app>
+
 </body>
 
 </html>
