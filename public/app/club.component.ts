@@ -4,9 +4,6 @@ import { Club } from './club';
 import { ClubService } from './club.service';
 import {  Control, FORM_DIRECTIVES } from "@angular/common";
 
-declare const FB:any;
-
-
 @Component({
     selector: 'my-club',
     templateUrl: 'app/club.component.html',
@@ -19,9 +16,12 @@ export class ClubComponent {
     clubs: Club[];
     clubSelect: Control = new Control('all');
     locations: String[];
-    public accessGranted: boolean;
 
     constructor(public _clubService: ClubService) {
+
+        this.getAllClubs();
+        this.getListOfLocation();
+
         this.clubSelect.valueChanges.subscribe((value)=>{
             if(value == 'all')
             {
@@ -32,27 +32,7 @@ export class ClubComponent {
                 this.getClubByLocation(value);
             }
         });
-
-        this.accessGranted = false;
     }
-    ngOnInit() {
-        FB.getLoginStatus(response => {
-            this.statusChangeCallback(response);
-        });
-    }
-    
-    statusChangeCallback(resp) {
-        if (resp.status === 'connected') {
-
-            this.getListOfLocation();
-            this.getAllClubs();
-            this.accessGranted = true;
-        }else if (resp.status === 'not_authorized') {
-            this.accessGranted = false;
-        }else {
-            this.accessGranted = false;
-        }
-    };
     
     getListOfLocation() {
         this._clubService.getAllClubs().subscribe((clubs: any) => {

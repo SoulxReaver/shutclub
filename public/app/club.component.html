@@ -1,4 +1,6 @@
-<div *ngIf="accessGranted">
+<h2>Book A Club</h2>
+
+<div>
     <select [ngFormControl]="clubSelect">
         <option value="all">All</option>
         <option *ngFor="let location of locations" value={{location}}>{{location}}</option>
