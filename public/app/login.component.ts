@@ -51,6 +51,7 @@ export class LoginComponent {
                         if (response.authResponse) {
                             localStorage.removeItem('userId');
                             localStorage.removeItem('accessToken');
+                            localStorage.removeItem('name');
                             observable.next(true);
                         } else {
                             observable.next(null);
@@ -60,7 +61,13 @@ export class LoginComponent {
                 )
             );
         }
-        obser.subscribe(x => this.toggleSignInButton(x));
+        obser.subscribe(x => { this.toggleSignInButton(x);
+                if(this.showLogout) {
+                    this.getUserName();
+                }
+            }
+        );
+
     }
 
     toggleSignInButton(turnOnSignIn) {
@@ -78,6 +85,7 @@ export class LoginComponent {
         if (resp.status === 'connected') {
             localStorage.setItem('userId', resp.authResponse.userID);
             localStorage.setItem('accessToken', resp.authResponse.accessToken);
+            this.getUserName();
             this.toggleSignInButton(null);
         }else if (resp.status === 'not_authorized') {
             this.toggleSignInButton(true);
@@ -85,14 +93,35 @@ export class LoginComponent {
             this.toggleSignInButton(true);
         }
     };
-
-    ngOnInit() {
+    ngDoCheck() {
+        if(localStorage.getItem('name'))
+        {
+            this.showLogout = true;
+            this.showSignin = null;
+        }
+        else {
+            this.showSignin = true;
+            this.showLogout = null;
+        }
+    }
+    getUserName() {
         var obser = Observable.create(observable =>
-            FB.getLoginStatus(response => {
+            FB.api('/me', {fields: 'name' }, response => {
+                localStorage.setItem('name', response.name);
                 observable.next(response);
                 observable.complete();
             })
         );
         obser.subscribe(response => this.statusChangeCallback(response));
+    }
+    ngOnInit() {
+        var test = Observable.create(observable =>
+            FB.getLoginStatus(response => {
+                observable.next(response);
+                observable.complete();
+            })
+        );
+
+        test.subscribe(response => { this.statusChangeCallback(response)});
     }
 }
