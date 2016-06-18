@@ -1,20 +1,24 @@
-/// <reference path="../../typings/public.d.ts" />
-
-import { Component } from 'angular2/core';
-import { RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
-import { HTTP_PROVIDERS } from 'angular2/http';
-import { HomeComponent } from "./home.component";
+import { Component } from '@angular/core';
+import { Routes, ROUTER_DIRECTIVES, Router } from '@angular/router';
+import {HomeComponent} from "./home.component";
+import {LoginComponent} from "./login.component";
 
 @Component({
     selector: 'my-app',
     templateUrl: 'app/app.component.html',
-    directives: [ ROUTER_DIRECTIVES ]
+    directives: [ ROUTER_DIRECTIVES, LoginComponent ]
 })
 
-@RouteConfig([
-    {path: '/home', name: 'Home', component: HomeComponent, useAsDefault: true}
+@Routes([
+    {path: '/home',  component: HomeComponent}
 ])
+
 export class AppComponent {
-    constructor(){}
     public title = "ShutClub";
+
+    constructor(private router: Router) {}
+
+    ngOnInit() {
+        this.router.navigate(['/home']);
+    }
 }

@@ -1,7 +1,8 @@
-/// <reference path="../../typings/public.d.ts" />
 
-import { Component } from 'angular2/core';
+import { Component } from '@angular/core';
 import { ClubComponent } from './club.component';
+
+declare const FB:any;
 
 @Component({
     selector: 'my-home',
@@ -11,6 +12,21 @@ import { ClubComponent } from './club.component';
 
 export class HomeComponent {
 
-    constructor() { }
+    public name;
 
+    constructor() {
+        this.name = 'test user';
+    }
+
+    ngDoCheck() {
+        if(localStorage.getItem('name'))
+        {
+            this.name = localStorage.getItem('name');
+        }
+        else {
+            this.name = 'test user';
+        }
+    }
+
+    ngOnInit() {    }
 }

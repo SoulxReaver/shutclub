@@ -1,13 +1,17 @@
-<select [ngFormControl]="clubSelect">
-    <option value="all">All</option>
-    <option *ngFor="#location of locations" value={{location}}>{{location}}</option>
-</select>
+<h2>Book A Club</h2>
 
-<div class="selections">
-    <ul>
-        <li *ngFor="#club of clubs">
-            <img src="./assets/{{club.clubName}}.jpg" width="160"/>
-            <span>{{club.clubName}}</span>
-        </li>
-    </ul>
+<div>
+    <select [ngFormControl]="clubSelect">
+        <option value="all">All</option>
+        <option *ngFor="let location of locations" value={{location}}>{{location}}</option>
+    </select>
+
+    <div class="selections">
+        <ul>
+            <li *ngFor="let club of clubs">
+                <img src="./assets/{{club.clubName}}.jpg" width="160"/>
+                <span>{{club.clubName}}</span>
+            </li>
+        </ul>
+    </div>
 </div>

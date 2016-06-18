@@ -1,4 +1,6 @@
 .idea/
 node_modules/
 dist/
-typings/tsd/
+.DS_Store
+._.DS_Store
+*.map

@@ -1,9 +1,8 @@
-/// <reference path="../../typings/public.d.ts" />
 
-import { Component } from 'angular2/core';
+import { Component } from '@angular/core';
 import { Club } from './club';
 import { ClubService } from './club.service';
-import {  Control, FORM_DIRECTIVES } from "angular2/common";
+import {  Control, FORM_DIRECTIVES } from "@angular/common";
 
 @Component({
     selector: 'my-club',
@@ -19,6 +18,10 @@ export class ClubComponent {
     locations: String[];
 
     constructor(public _clubService: ClubService) {
+
+        this.getAllClubs();
+        this.getListOfLocation();
+
         this.clubSelect.valueChanges.subscribe((value)=>{
             if(value == 'all')
             {
@@ -30,15 +33,15 @@ export class ClubComponent {
             }
         });
     }
-    ngOnInit() {
-        this.getListOfLocation();
-        this.getAllClubs();
-    }
     
     getListOfLocation() {
-        this._clubService.getListOfLocation()
-            .subscribe((location: any) => {
-                this.locations = location
+        this._clubService.getAllClubs().subscribe((clubs: any) => {
+                let listOfLocation = [];
+                jQuery.each(clubs, function (index:number, club:Club) {
+                    listOfLocation.push(club.location);
+                });
+                jQuery.unique(listOfLocation);
+                this.locations = listOfLocation;
             }, err => console.log(err));
     }
     
@@ -49,11 +52,20 @@ export class ClubComponent {
             }, err => console.log(err));
     }
 
-    getClubByLocation(location) {
-        this._clubService.getClubByLocation(location)
+    getClubByLocation(location: string) {
+        this._clubService.getAllClubs()
             .subscribe((clubs: any) => {
-                this.clubs = clubs
+                let clubCollection = [];
+                jQuery.each(clubs, function (index:number, club:Club) {
+                    if(club.location == location)
+                    {
+                        clubCollection.push(club);
+                    }
+                });
+                
+                this.clubs = clubCollection
             }, err => console.log(err));
     }
+
 
 }
