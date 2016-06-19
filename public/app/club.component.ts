@@ -2,14 +2,14 @@
 import { Component } from '@angular/core';
 import { Club } from './club';
 import { ClubService } from './club.service';
-import {  Control, FORM_DIRECTIVES } from "@angular/common";
+import { Control } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'my-club',
     templateUrl: 'app/club.component.html',
     providers: [ ClubService ],
-    styleUrls: [ 'app/club.component.css' ],
-    directives: [FORM_DIRECTIVES]
+    styleUrls: [ 'app/club.component.css' ]
 })
 
 export class ClubComponent {
@@ -17,7 +17,7 @@ export class ClubComponent {
     clubSelect: Control = new Control('all');
     locations: String[];
 
-    constructor(public _clubService: ClubService) {
+    constructor(public _clubService: ClubService, private router: Router) {
 
         this.getAllClubs();
         this.getListOfLocation();
@@ -67,5 +67,7 @@ export class ClubComponent {
             }, err => console.log(err));
     }
 
-
+    clicked(clubId) {
+        this.router.navigate(['/club/', clubId ]);
+    }
 }

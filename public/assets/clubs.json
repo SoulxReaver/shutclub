@@ -1,20 +1,24 @@
 [
   {
+    "id": 1,
     "clubName": "club1",
     "location": "sea",
     "state":"WA"
   },
   {
+    "id": 2,
     "clubName": "club2",
     "location": "bell",
     "state": "CA"
   },
   {
+    "id": 3,
     "clubName": "club3",
     "location": "sea",
     "state": "OR"
   },
   {
+    "id": 4,
     "clubName": "club4",
     "location": "bell",
     "state": "tx"

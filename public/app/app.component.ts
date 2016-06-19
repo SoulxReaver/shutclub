@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Routes, ROUTER_DIRECTIVES, Router } from '@angular/router';
 import {HomeComponent} from "./home.component";
 import {LoginComponent} from "./login.component";
+import {TableComponent} from "./table.component";
 
 @Component({
     selector: 'my-app',
@@ -10,7 +11,8 @@ import {LoginComponent} from "./login.component";
 })
 
 @Routes([
-    {path: '/home',  component: HomeComponent}
+    {path: '/home',  component: HomeComponent},
+    {path: '/club/:id', component: TableComponent}
 ])
 
 export class AppComponent {

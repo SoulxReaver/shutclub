@@ -1,0 +1,13 @@
+<h2>Select A Table</h2>
+
+<div class="selections">
+    <ul>
+        <li *ngFor="let table of tables">
+            <span>Table Size: {{table.numberOfSpace}}</span>
+            <br>
+            <span>${{table.price}}</span>
+            <br>
+            <button>Reserve</button>
+        </li>
+    </ul>
+</div>

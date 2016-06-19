@@ -8,7 +8,7 @@
 
     <div class="selections">
         <ul>
-            <li *ngFor="let club of clubs">
+            <li *ngFor="let club of clubs" (click)="clicked(club.id)">
                 <img src="./assets/{{club.clubName}}.jpg" width="160"/>
                 <span>{{club.clubName}}</span>
             </li>

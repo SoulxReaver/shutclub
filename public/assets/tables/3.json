@@ -1,0 +1,15 @@
+{
+  "clubName": "club3",
+  "table": [
+    {
+      "tableId": 1,
+      "numberOfSpace": 15,
+      "price": 150
+    },
+    {
+      "tableId": 2,
+      "numberOfSpace": 6,
+      "price": 60
+    }
+  ]
+}

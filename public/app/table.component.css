@@ -1,0 +1,17 @@
+.selections {
+    color: black;
+    height: 122px;
+}
+
+.selections ul {
+    list-style: none;
+    text-align: center;
+}
+
+.selections ul li {
+    padding: 10px 5px 45px;
+    border: 1px black solid;
+    width: 192px;
+    float:left;
+    margin-left: 5px;
+}

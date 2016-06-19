@@ -4,12 +4,11 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class ClubService {
+export class TableService {
     constructor(public http: Http) {}
-    
-    getAllClubs(): Observable<Response> {
-        
-        return this.http.get('/assets/clubs.json').map(this.extractData)
+
+    getAllTables(clubId): Observable<Response> {
+        return this.http.get('/assets/tables/' + clubId + '.json').map(this.extractData)
     }
     
     private extractData(res: Response) {

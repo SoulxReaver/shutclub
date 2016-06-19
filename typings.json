@@ -4,7 +4,7 @@
   "dependencies": {},
   "ambientDependencies": {
     "es6-shim": "registry:dt/es6-shim#0.31.2+20160317120654",
-    "hapi": "registry:dt/hapi#13.0.0+20160423150146",
+    "jquery": "registry:dt/jquery#1.10.0+20160417213236",
     "systemjs": "registry:dt/systemjs#0.18.4+20160417155658"
   }
 }
